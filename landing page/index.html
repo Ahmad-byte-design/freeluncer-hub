@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-en="Veloce Motors — Premium Car Showroom" data-ar="فيلوسي موتورز — صالة سيارات فاخرة">Veloce Motors</title>
+    <meta name="description" content="Premium car showroom landing page.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/main.css">
+    <!-- Flags JS as available so scroll-reveal styles apply only when supported -->
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <!-- Skip link -->
+    <a class="skip-link" href="#main" data-en="Skip to content" data-ar="تخطَّ إلى المحتوى">Skip to content</a>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+      <div class="container header-inner">
+        <a class="logo" href="#top">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <span class="logo-text">
+            <span class="logo-name" data-en="VELOCE" data-ar="فيـلوسي">VELOCE</span>
+            <span class="logo-sub" data-en="MOTORS" data-ar="موتورز">MOTORS</span>
+          </span>
+        </a>
+
+        <nav class="nav" id="nav" aria-label="Main">
+          <ul class="nav-list">
+            <li><a href="#top" data-en="Home" data-ar="الرئيسية">Home</a></li>
+            <li><a href="#inventory" data-en="Cars" data-ar="السيارات">Cars</a></li>
+            <li><a href="#why" data-en="Why Us" data-ar="لماذا نحن">Why Us</a></li>
+            <li><a href="#reviews" data-en="Reviews" data-ar="الآراء">Reviews</a></li>
+            <li><a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="lang-toggle" role="group" data-en-aria="Select language" data-ar-aria="اختر اللغة">
+            <button type="button" class="lang-btn is-active" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" class="lang-btn" data-lang="ar" aria-pressed="false">ع</button>
+          </div>
+
+          <a class="btn btn-solid btn-sm header-cta" href="#contact" data-en="Test Drive" data-ar="تجربة قيادة">Test Drive</a>
+
+          <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="nav"
+                  data-en-aria="Open menu" data-ar-aria="افتح القائمة">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="top">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="container hero-inner">
+          <p class="eyebrow reveal">
+            <span class="eyebrow-line" aria-hidden="true"></span>
+            <span data-en="Premium Showroom Since 2010" data-ar="صالة عرض فاخرة منذ 2010">Premium Showroom Since 2010</span>
+          </p>
+
+          <h1 class="hero-title reveal" data-en="Drive The Car You've Always Wanted" data-ar="قُد السيارة التي لطالما أردتها">Drive The Car You've Always Wanted</h1>
+
+          <p class="hero-sub reveal" data-en="A handpicked collection of luxury and performance vehicles — fully inspected, transparently priced, and delivered to your door." data-ar="مجموعة مختارة بعناية من سيارات الفخامة والأداء — مفحوصة بالكامل، بأسعار شفافة، وتُسلَّم إلى باب منزلك.">A handpicked collection of luxury and performance vehicles.</p>
+
+          <div class="hero-actions reveal">
+            <a class="btn btn-solid btn-lg" href="#inventory" data-en="Browse Inventory" data-ar="تصفّح السيارات">Browse Inventory</a>
+            <a class="btn btn-ghost btn-lg" href="#contact" data-en="Book A Test Drive" data-ar="احجز تجربة قيادة">Book A Test Drive</a>
+          </div>
+
+          <dl class="stats reveal">
+            <div class="stat">
+              <dt data-en="Cars Sold" data-ar="سيارة مباعة">Cars Sold</dt>
+              <dd class="stat-num" data-count="1240">1,240+</dd>
+            </div>
+            <div class="stat">
+              <dt data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</dt>
+              <dd class="stat-num" data-count="15">15</dd>
+            </div>
+            <div class="stat">
+              <dt data-en="Happy Clients" data-ar="عميل سعيد">Happy Clients</dt>
+              <dd class="stat-num" data-count="860">860+</dd>
+            </div>
+            <div class="stat">
+              <dt data-en="Warranty Years" data-ar="سنوات ضمان">Warranty Years</dt>
+              <dd class="stat-num" data-count="5">5</dd>
+            </div>
+          </dl>
+        </div>
+
+        <a class="scroll-cue" href="#inventory" data-en-aria="Scroll to inventory" data-ar-aria="مرّر إلى السيارات">
+          <span class="scroll-line" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <!-- ============ INVENTORY ============ -->
+      <section class="section inventory" id="inventory">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="kicker" data-en="Our Inventory" data-ar="مخزوننا">Our Inventory</p>
+            <h2 class="section-title" data-en="Featured Vehicles" data-ar="سيارات مميزة">Featured Vehicles</h2>
+            <p class="section-sub" data-en="Every vehicle below has passed our 150-point certification and comes with a 5-year warranty." data-ar="كل سيارة أدناه اجتازت توثيقنا المكوّن من 150 نقطة وتأتي مع ضمان 5 سنوات.">Every vehicle below has passed our 150-point certification.</p>
+          </header>
+
+          <div class="car-grid">
+            <!-- Card 1 -->
+            <article class="car-card reveal">
+              <div class="car-media">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80" alt="Mercedes-AMG GT coupe" loading="lazy">
+                <span class="tag tag-dark" data-en="Certified" data-ar="موثّقة">Certified</span>
+              </div>
+              <div class="car-body">
+                <p class="car-brand" data-en="Mercedes-AMG" data-ar="مرسيدس AMG">Mercedes-AMG</p>
+                <h3 class="car-name" data-en="GT 63 S" data-ar="GT 63 S">GT 63 S</h3>
+                <ul class="car-specs">
+                  <li><span data-en="Engine" data-ar="المحرك">Engine</span><b>4.0L V8</b></li>
+                  <li><span data-en="Power" data-ar="القوة">Power</span><b>577 HP</b></li>
+                  <li><span data-en="0–100" data-ar="0–100">0–100</span><b>3.1s</b></li>
+                </ul>
+                <p class="car-price">$148,000</p>
+                <a class="btn btn-outline btn-block" href="#contact" data-en="View Details" data-ar="عرض التفاصيل">View Details</a>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="car-card reveal">
+              <div class="car-media">
+                <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&q=80" alt="Porsche 911 Carrera" loading="lazy">
+                <span class="tag tag-dark" data-en="New Arrival" data-ar="وصل حديثًا">New Arrival</span>
+              </div>
+              <div class="car-body">
+                <p class="car-brand" data-en="Porsche" data-ar="بورشه">Porsche</p>
+                <h3 class="car-name" data-en="911 Carrera S" data-ar="911 كاريرا S">911 Carrera S</h3>
+                <ul class="car-specs">
+                  <li><span data-en="Engine" data-ar="المحرك">Engine</span><b>3.0L Turbo</b></li>
+                  <li><span data-en="Power" data-ar="القوة">Power</span><b>443 HP</b></li>
+                  <li><span data-en="0–100" data-ar="0–100">0–100</span><b>3.5s</b></li>
+                </ul>
+                <p class="car-price">$126,500</p>
+                <a class="btn btn-outline btn-block" href="#contact" data-en="View Details" data-ar="عرض التفاصيل">View Details</a>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="car-card reveal">
+              <div class="car-media">
+                <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80" alt="Lamborghini Huracan" loading="lazy">
+                <span class="tag tag-dark" data-en="Certified" data-ar="موثّقة">Certified</span>
+              </div>
+              <div class="car-body">
+                <p class="car-brand" data-en="Lamborghini" data-ar="لامبورجيني">Lamborghini</p>
+                <h3 class="car-name" data-en="Huracán EVO" data-ar="هوراكان EVO">Huracán EVO</h3>
+                <ul class="car-specs">
+                  <li><span data-en="Engine" data-ar="المحرك">Engine</span><b>5.2L V10</b></li>
+                  <li><span data-en="Power" data-ar="القوة">Power</span><b>631 HP</b></li>
+                  <li><span data-en="0–100" data-ar="0–100">0–100</span><b>2.9s</b></li>
+                </ul>
+                <p class="car-price">$262,000</p>
+                <a class="btn btn-outline btn-block" href="#contact" data-en="View Details" data-ar="عرض التفاصيل">View Details</a>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="car-card reveal">
+              <div class="car-media">
+                <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80" alt="BMW M4 Competition" loading="lazy">
+                <span class="tag tag-dark" data-en="New Arrival" data-ar="وصل حديثًا">New Arrival</span>
+              </div>
+              <div class="car-body">
+                <p class="car-brand" data-en="BMW" data-ar="بي إم دبليو">BMW</p>
+                <h3 class="car-name" data-en="M4 Competition" data-ar="M4 كومبيتشيون">M4 Competition</h3>
+                <ul class="car-specs">
+                  <li><span data-en="Engine" data-ar="المحرك">Engine</span><b>3.0L I6</b></li>
+                  <li><span data-en="Power" data-ar="القوة">Power</span><b>503 HP</b></li>
+                  <li><span data-en="0–100" data-ar="0–100">0–100</span><b>3.5s</b></li>
+                </ul>
+                <p class="car-price">$82,400</p>
+                <a class="btn btn-outline btn-block" href="#contact" data-en="View Details" data-ar="عرض التفاصيل">View Details</a>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="car-card reveal">
+              <div class="car-media">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80" alt="Audi RS7 Sportback" loading="lazy">
+                <span class="tag tag-dark" data-en="Certified" data-ar="موثّقة">Certified</span>
+              </div>
+              <div class="car-body">
+                <p class="car-brand" data-en="Audi" data-ar="أودي">Audi</p>
+                <h3 class="car-name" data-en="RS7 Sportback" data-ar="RS7 سبورت باك">RS7 Sportback</h3>
+                <ul class="car-specs">
+                  <li><span data-en="Engine" data-ar="المحرك">Engine</span><b>4.0L V8</b></li>
+                  <li><span data-en="Power" data-ar="القوة">Power</span><b>591 HP</b></li>
+                  <li><span data-en="0–100" data-ar="0–100">0–100</span><b>3.3s</b></li>
+                </ul>
+                <p class="car-price">$118,900</p>
+                <a class="btn btn-outline btn-block" href="#contact" data-en="View Details" data-ar="عرض التفاصيل">View Details</a>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="car-card reveal">
+              <div class="car-media">
+                <img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=800&q=80" alt="Tesla Model S Plaid" loading="lazy">
+                <span class="tag tag-dark" data-en="Electric" data-ar="كهربائية">Electric</span>
+              </div>
+              <div class="car-body">
+                <p class="car-brand" data-en="Tesla" data-ar="تسلا">Tesla</p>
+                <h3 class="car-name" data-en="Model S Plaid" data-ar="موديل S بلاك">Model S Plaid</h3>
+                <ul class="car-specs">
+                  <li><span data-en="Engine" data-ar="المحرك">Engine</span><b data-en="Electric" data-ar="كهربائية">Electric</b></li>
+                  <li><span data-en="Power" data-ar="القوة">Power</span><b>1,020 HP</b></li>
+                  <li><span data-en="0–100" data-ar="0–100">0–100</span><b>2.1s</b></li>
+                </ul>
+                <p class="car-price">$94,990</p>
+                <a class="btn btn-outline btn-block" href="#contact" data-en="View Details" data-ar="عرض التفاصيل">View Details</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ WHY US ============ -->
+      <section class="section section-invert why" id="why">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="kicker" data-en="Why Veloce" data-ar="لماذا فيلوسي">Why Veloce</p>
+            <h2 class="section-title" data-en="Buying A Car, The Right Way" data-ar="شراء السيارة بالطريقة الصحيحة">Buying A Car, The Right Way</h2>
+          </header>
+
+          <div class="feature-grid">
+            <article class="feature reveal">
+              <span class="feature-num">01</span>
+              <h3 data-en="Certified Vehicles" data-ar="سيارات موثّقة">Certified Vehicles</h3>
+              <p data-en="Every car passes a 150-point inspection and comes with a full history report before it reaches our showroom floor." data-ar="كل سيارة تخضع لفحص من 150 نقطة وتأتي بتقرير تاريخ كامل قبل الوصول إلى صالة العرض.">Every car passes a 150-point inspection.</p>
+            </article>
+
+            <article class="feature reveal">
+              <span class="feature-num">02</span>
+              <h3 data-en="Transparent Pricing" data-ar="أسعار شفافة">Transparent Pricing</h3>
+              <p data-en="The price you see online is the price you pay. No hidden fees, no surprise add-ons at the counter." data-ar="السعر الذي تراه عبر الإنترنت هو السعر الذي تدفعه. لا رسوم خفية ولا إضافات مفاجئة عند مكتب التسليم.">The price you see online is the price you pay.</p>
+            </article>
+
+            <article class="feature reveal">
+              <span class="feature-num">03</span>
+              <h3 data-en="Flexible Financing" data-ar="تمويل مرن">Flexible Financing</h3>
+              <p data-en="Tailored monthly plans with competitive rates, fast approval, and an option to settle early at any time." data-ar="خطط شهرية مخصصة بمعدلات تنافسية، وموافقة سريعة، مع إمكانية السداد المبكر في أي وقت.">Tailored monthly plans with competitive rates.</p>
+            </article>
+
+            <article class="feature reveal">
+              <span class="feature-num">04</span>
+              <h3 data-en="Insured Delivery" data-ar="توصيل مؤمَّن">Insured Delivery</h3>
+              <p data-en="We bring your car to your door anywhere in the country, fully insured and ready to drive." data-ar="نوصل سيارتك إلى باب منزلك في أي مكان بالبلد، مع تأمين كامل وجاهزة للقيادة.">We bring your car to your door, fully insured.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ REVIEWS ============ -->
+      <section class="section reviews" id="reviews">
+        <div class="container">
+          <header class="section-head reveal">
+            <p class="kicker" data-en="Testimonials" data-ar="آراء العملاء">Testimonials</p>
+            <h2 class="section-title" data-en="What Our Clients Say" data-ar="ماذا يقول عملاؤنا">What Our Clients Say</h2>
+          </header>
+
+          <div class="review-grid">
+            <figure class="review reveal">
+              <blockquote>
+                <p data-en="The whole process was effortless. I drove home in my dream car the same week." data-ar="كانت العملية كلها سهلة. قدت سيارتي الجديدة إلى المنزل في الأسبوع نفسه.">The whole process was effortless.</p>
+              </blockquote>
+              <figcaption>
+                <span class="avatar" aria-hidden="true">S</span>
+                <span class="review-meta">
+                  <b data-en="Sarah M." data-ar="سارة م.">Sarah M.</b>
+                  <small data-en="Dubai — Mercedes-AMG GT" data-ar="دبي — مرسيدس AMG GT">Dubai</small>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="review reveal">
+              <blockquote>
+                <p data-en="Transparent pricing and zero pressure. Exactly what I was looking for." data-ar="أسعار شفافة وبلا أي ضغط. هذا بالضبط ما كنت أبحث عنه.">Transparent pricing and zero pressure.</p>
+              </blockquote>
+              <figcaption>
+                <span class="avatar" aria-hidden="true">O</span>
+                <span class="review-meta">
+                  <b data-en="Omar K." data-ar="عمر ك.">Omar K.</b>
+                  <small data-en="Riyadh — Porsche 911" data-ar="الرياض — بورشه 911">Riyadh</small>
+                </span>
+              </figcaption>
+            </figure>
+
+            <figure class="review reveal">
+              <blockquote>
+                <p data-en="The best showroom experience I have had anywhere. Highly recommended." data-ar="أفضل تجربة صالة عرض جربتها في حياتي. أنصح بهم بشدة.">The best showroom experience I have had anywhere.</p>
+              </blockquote>
+              <figcaption>
+                <span class="avatar" aria-hidden="true">J</span>
+                <span class="review-meta">
+                  <b data-en="James W." data-ar="جيمس و.">James W.</b>
+                  <small data-en="London — Tesla Model S" data-ar="لندن — تسلا موديل S">London</small>
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACT / TEST DRIVE ============ -->
+      <section class="section section-invert contact" id="contact">
+        <div class="container contact-inner">
+          <div class="contact-copy reveal">
+            <p class="kicker" data-en="Get Started" data-ar="لنبدأ">Get Started</p>
+            <h2 class="section-title" data-en="Book Your Test Drive" data-ar="احجز تجربة القيادة">Book Your Test Drive</h2>
+            <p class="contact-sub" data-en="Pick a date and one of our advisors will confirm within 24 hours. No obligation, no pressure." data-ar="اختر موعدًا وسيتولى أحد مستشارينا التأكيد خلال 24 ساعة. دون أي التزام أو ضغط.">Pick a date and our advisor will confirm within 24 hours.</p>
+
+            <ul class="contact-list">
+              <li>
+                <span class="ci" aria-hidden="true"></span>
+                <span data-en="+971 4 000 0000" data-ar="+971 4 000 0000">+971 4 000 0000</span>
+              </li>
+              <li>
+                <span class="ci" aria-hidden="true"></span>
+                <span data-en="hello@velocemotors.com" data-ar="hello@velocemotors.com">hello@velocemotors.com</span>
+              </li>
+              <li>
+                <span class="ci" aria-hidden="true"></span>
+                <span data-en="Showroom 1, Sheikh Zayed Road, Dubai" data-ar="صالة العرض 1، شارع الشيخ زايد، دبي">Showroom 1, Sheikh Zayed Road, Dubai</span>
+              </li>
+            </ul>
+          </div>
+
+          <form class="card-form reveal" id="testDriveForm" novalidate>
+            <div class="field">
+              <label for="name" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label for="email" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+
+            <div class="field">
+              <label for="phone" data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel">
+            </div>
+
+            <div class="field">
+              <label for="date" data-en="Preferred Date" data-ar="التاريخ المفضل">Preferred Date</label>
+              <input type="date" id="date" name="date" required>
+            </div>
+
+            <button type="submit" class="btn btn-solid btn-lg btn-block" data-en="Reserve My Slot" data-ar="احجز مكاني">Reserve My Slot</button>
+
+            <p class="form-msg" id="formMsg" role="status" aria-live="polite" hidden></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <span class="logo-name" data-en="VELOCE" data-ar="فيـلوسي">VELOCE</span>
+          <p data-en="Premium and performance vehicles, sold with honesty." data-ar="سيارات فخامة وأداء، تُباع بأمانة.">Premium and performance vehicles, sold with honesty.</p>
+        </div>
+
+        <nav class="footer-links" data-en-aria="Footer navigation" data-ar-aria="تنقل التذييل">
+          <a href="#inventory" data-en="Cars" data-ar="السيارات">Cars</a>
+          <a href="#why" data-en="Why Us" data-ar="لماذا نحن">Why Us</a>
+          <a href="#reviews" data-en="Reviews" data-ar="الآراء">Reviews</a>
+          <a href="#contact" data-en="Contact" data-ar="تواصل معنا">Contact</a>
+        </nav>
+
+        <p class="copyright">
+          <span data-en="© 2026 Veloce Motors. All rights reserved." data-ar="© 2026 فيلوسي موتورز. جميع الحقوق محفوظة.">© 2026 Veloce Motors. All rights reserved.</span>
+        </p>
+      </div>
+    </footer>
+
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

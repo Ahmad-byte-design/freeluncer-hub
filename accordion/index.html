@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .accordion {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        padding: 10px;
+      }
+
+      .active {
+        background-color: #f0f0f0;
+      }
+
+      .active h3 {
+        color: #007bff;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <ul>
+        <li class="accordion active">
+          <h3>header</h3>
+          <p class="content hidden">content</p>
+        </li>
+        <li class="accordion">
+          <h3>header</h3>
+          <p class="content hidden">content</p>
+        </li>
+        <li class="accordion">
+          <h3>header</h3>
+          <p class="content hidden">content</p>
+        </li>
+        <li class="accordion">
+          <h3>header</h3>
+          <p class="content hidden">content</p>
+        </li>
+      </ul>
+    </section>
+
+    <script>
+      const accordions = document.querySelectorAll(".accordion");
+
+      accordions.forEach((accordion) => {
+        const header = accordion.querySelector("h3");
+        const content = accordion.querySelector(".content");
+
+        header.addEventListener("click", () => {
+           accordions.forEach((item) => {
+            if (item !== accordion) {
+              item.classList.remove("active");
+              item.querySelector(".content").classList.add("hidden");
+            }
+            });  
+          accordion.classList.toggle("active");
+          content.classList.toggle("hidden");
+        });
+      });
+    </script>
+  </body>
+</html>
