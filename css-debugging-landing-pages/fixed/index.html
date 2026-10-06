@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brewly — Fresh coffee, delivered</title>
+  <!--
+    This HTML is IDENTICAL in broken/ and fixed/.
+    Every problem you see in this page lives in style.css.
+  -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">☕ Brewly</a>
+      <nav class="nav" aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#reviews">Reviews</a>
+      </nav>
+      <a href="#pricing" class="btn btn-small">Get started</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">Roasted Monday · At your door by Friday</span>
+          <h1>Fresh coffee, delivered on your schedule</h1>
+          <p class="lead">
+            Small-batch beans from independent roasters, ground the way you brew.
+            Pause, skip or swap anytime — no contracts.
+          </p>
+
+          <form class="signup" onsubmit="return false">
+            <input type="email" placeholder="you@example.com" aria-label="Email address">
+            <button type="submit" class="btn">Start my plan</button>
+          </form>
+          <p class="fineprint">Free shipping on every order. Cancel in two clicks.</p>
+        </div>
+
+        <div class="hero-art">
+          <img src="../assets/hero.svg" alt="A bag of Brewly coffee next to a steaming cup">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section id="features" class="section">
+      <div class="container">
+        <h2>Why people stay with Brewly</h2>
+        <div class="features">
+          <article class="card">
+            <div class="card-icon">🔥</div>
+            <h3>Roasted to order</h3>
+            <p>We roast after you order, never before. Your beans ship within 48 hours of leaving the drum.</p>
+          </article>
+          <article class="card">
+            <div class="card-icon">⚙️</div>
+            <h3>Ground for your brewer</h3>
+            <p>
+              Tell us how you brew — espresso, V60, AeroPress, French press, cold brew
+              or a trusty drip machine — and we'll grind every bag to match. Not sure?
+              Choose whole bean and our brew guide walks you through dialling in your
+              grinder, step by step, with photos.
+            </p>
+          </article>
+          <article class="card">
+            <div class="card-icon">📅</div>
+            <h3>On your schedule</h3>
+            <p>Weekly, fortnightly or monthly. Skip a delivery from your phone in one tap.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section id="pricing" class="section section-alt">
+      <div class="container">
+        <h2>Simple plans</h2>
+        <div class="plans">
+          <div class="plan">
+            <h3>Taster</h3>
+            <p class="price">$14<span>/month</span></p>
+            <ul>
+              <li>1 bag (250g)</li>
+              <li>Rotating single origins</li>
+              <li>Free shipping</li>
+            </ul>
+            <a href="#" class="btn btn-outline">Choose Taster</a>
+          </div>
+          <div class="plan plan-popular">
+            <span class="badge">Most popular</span>
+            <h3>Daily</h3>
+            <p class="price">$26<span>/month</span></p>
+            <ul>
+              <li>2 bags (500g)</li>
+              <li>Pick your roasters</li>
+              <li>Free shipping</li>
+            </ul>
+            <a href="#" class="btn">Choose Daily</a>
+          </div>
+          <div class="plan">
+            <h3>Office</h3>
+            <p class="price">$64<span>/month</span></p>
+            <ul>
+              <li>5 bags (1.25kg)</li>
+              <li>Mixed roasts for the team</li>
+              <li>Priority delivery</li>
+            </ul>
+            <a href="#" class="btn btn-outline">Choose Office</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section id="reviews" class="section">
+      <div class="container">
+        <h2>What customers say</h2>
+        <div class="reviews">
+          <blockquote class="review">
+            <p>"The first coffee subscription that actually tastes like the café down the street."</p>
+            <cite>Omar R., Amman</cite>
+          </blockquote>
+          <blockquote class="review">
+            <p>"I've tried five of these. Brewly is the one I didn't cancel."</p>
+            <cite>@lina.brews.at.home.every.single.morning.before.work.and.twice.on.weekends</cite>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Brewly Coffee Co. · A demo page for CSS debugging practice.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS Bug Hunt</title>
+  <style>
+    :root {
+      --paper: #f4f1ec; --surface: #fff; --ink: #1d1a17; --muted: #5f5850;
+      --line: #e2ddd5; --bad: #b4272b; --good: #2f6b1f; --accent: #a84b1b;
+    }
+    * { box-sizing: border-box; margin: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--paper); color: var(--ink);
+      height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+    }
+
+    /* ---------- toolbar ---------- */
+    .bar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px;
+      padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--line);
+    }
+    .bar h1 { font-size: 16px; }
+    .bar h1 span { color: var(--muted); font-weight: 500; }
+    .presets { display: flex; gap: 6px; }
+    .presets button {
+      font: inherit; font-size: 13px; padding: 5px 10px; cursor: pointer;
+      border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink);
+    }
+    .presets button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .presets button:focus-visible, input:focus-visible, .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .slider { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+    .slider output { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 600; min-width: 52px; }
+    .toggle { font-size: 13px; display: flex; align-items: center; gap: 6px; color: var(--muted); }
+
+    /* ---------- panes ---------- */
+    .panes { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px; min-height: 0; }
+    .panes.single { grid-template-columns: 1fr; }
+    .panes.single .pane-fixed { display: none; }
+    .pane { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+    .label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; font-weight: 700; padding: 0 2px 6px; }
+    .label a { font-weight: 500; color: var(--muted); }
+    .pane-broken .label strong { color: var(--bad); }
+    .pane-fixed .label strong { color: var(--good); }
+
+    /* The stage measures the available space; the frame inside is rendered at
+       the chosen device width and scaled down (never up) to fit. */
+    .stage { flex: 1; position: relative; overflow: hidden; border-radius: 8px; background: #d9d3ca; min-height: 0; }
+    .stage iframe {
+      position: absolute; top: 0; left: 50%; border: 0; background: #fff;
+      transform-origin: top center;
+    }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <h1>CSS Bug Hunt <span>· 17 bugs, same HTML</span></h1>
+    <div class="presets" role="group" aria-label="Device width">
+      <button data-w="390">Phone 390</button>
+      <button data-w="768">Tablet 768</button>
+      <button data-w="1280" aria-pressed="true">Laptop 1280</button>
+    </div>
+    <label class="slider">Width
+      <input type="range" id="w" min="320" max="1440" step="10" value="1280">
+      <output id="wOut">1280px</output>
+    </label>
+    <label class="toggle"><input type="checkbox" id="hideFixed"> Hide fixed version (bug-hunt mode)</label>
+  </div>
+
+  <div class="panes" id="panes">
+    <div class="pane pane-broken">
+      <div class="label"><strong>✗ broken/</strong><a href="broken/index.html" target="_blank">open in new tab ↗</a></div>
+      <div class="stage"><iframe src="broken/index.html" title="Broken version"></iframe></div>
+    </div>
+    <div class="pane pane-fixed">
+      <div class="label"><strong>✓ fixed/</strong><a href="fixed/index.html" target="_blank">open in new tab ↗</a></div>
+      <div class="stage"><iframe src="fixed/index.html" title="Fixed version"></iframe></div>
+    </div>
+  </div>
+
+  <script>
+    const range = document.getElementById('w');
+    const out = document.getElementById('wOut');
+    const presets = document.querySelectorAll('.presets button');
+    const panes = document.getElementById('panes');
+    let width = 1280;
+
+    // Render each iframe at the real device width, then scale it to fit its
+    // stage. Height is stretched to compensate so the frame fills the stage.
+    function layout() {
+      document.querySelectorAll('.stage').forEach(stage => {
+        const frame = stage.querySelector('iframe');
+        const scale = Math.min(1, stage.clientWidth / width);
+        frame.style.width = width + 'px';
+        frame.style.height = (stage.clientHeight / scale) + 'px';
+        frame.style.transform = `translateX(-50%) scale(${scale})`;
+      });
+      out.textContent = width + 'px';
+      presets.forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.w === width)));
+    }
+
+    range.addEventListener('input', () => { width = +range.value; layout(); });
+    presets.forEach(b => b.addEventListener('click', () => { width = +b.dataset.w; range.value = width; layout(); }));
+    document.getElementById('hideFixed').addEventListener('change', e => {
+      panes.classList.toggle('single', e.target.checked);
+      layout();
+    });
+    window.addEventListener('resize', layout);
+    layout();
+  </script>
+</body>
+</html>

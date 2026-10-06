@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JS from Zero</title>
+  <link rel="stylesheet" href="shared/task.css">
+  <style>
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 36px 16px 72px; }
+    .hero { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .logo {
+      width: 72px; height: 72px; flex: none; background: var(--js); color: #1c1b19; border-radius: 10px;
+      display: grid; place-items: end end; padding: 8px 10px; font: 800 30px/1 system-ui, sans-serif;
+    }
+    .hero h1 { margin: 0; font-size: clamp(32px, 5vw, 48px); line-height: 1.05; }
+    .hero p { margin: 6px 0 0; color: var(--muted); max-width: 60ch; }
+
+    .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 28px 0 8px; padding: 0; list-style: none; counter-reset: how; }
+    .how li {
+      background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px 16px; font-size: 15px; counter-increment: how;
+    }
+    .how li::before { content: counter(how); display: block; font-weight: 800; font-size: 22px; color: var(--muted); }
+
+    .level { margin-top: 36px; }
+    .level-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 3px solid var(--level); padding-bottom: 6px; }
+    .level-head h2 { margin: 0; font-size: 22px; }
+    .level-head .tag { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--level); }
+    .level-head p { margin: 0; color: var(--muted); font-size: 15px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 14px; }
+    .card {
+      position: relative; display: block; text-decoration: none; background: var(--surface);
+      border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px 16px;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .card:hover { border-color: var(--level); transform: translateY(-2px); }
+    .card .num { font-size: 13px; font-weight: 700; color: var(--level); }
+    .card h3 { margin: 2px 0 6px; font-size: 18px; }
+    .card p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+    .card .concepts code { font-size: 12px; }
+    .card .done {
+      position: absolute; top: 12px; right: 14px; font-size: 12px; font-weight: 800; color: var(--pass);
+      display: none;
+    }
+    .card.is-done .done { display: block; }
+    .reset { margin-top: 40px; font-size: 13px; color: var(--muted); }
+    .reset button { font: inherit; background: none; border: 0; color: inherit; text-decoration: underline; cursor: pointer; padding: 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="logo" aria-hidden="true">JS</div>
+      <div>
+        <h1>JavaScript from Zero</h1>
+        <p>13 small tasks in 5 levels, from your first <code>console.log</code> to a working todo app. Each one checks your work as you go.</p>
+      </div>
+    </header>
+
+    <ol class="how" aria-label="How each task works">
+      <li>Open a task. Read the <strong>Goal</strong> and <strong>Steps</strong>.</li>
+      <li>Open that task's <code>starter.js</code> in your editor. Each step is a <code>TODO</code>.</li>
+      <li>Save and refresh. The <strong>Checks</strong> panel turns green as you finish each step.</li>
+      <li>Stuck? Read the red error in the console first. The <strong>Solution</strong> tab is the last resort.</li>
+    </ol>
+
+    <section class="level" data-level="1">
+      <div class="level-head"><span class="tag">Level 1</span><h2>Basics</h2><p>Values, variables, and how JavaScript sees them</p></div>
+      <div class="cards">
+        <a class="card" href="level-1-basics/01-hello-console/index.html" data-task="01-hello-console">
+          <span class="done">✓ Done</span><span class="num">1.1</span><h3>Hello, Console</h3>
+          <p>Print things, and see what kind of value each one is.</p>
+          <ul class="concepts"><li><code>console.log</code></li><li><code>typeof</code></li></ul>
+        </a>
+        <a class="card" href="level-1-basics/02-variables/index.html" data-task="02-variables">
+          <span class="done">✓ Done</span><span class="num">1.2</span><h3>Variables</h3>
+          <p>Store values, change them, build a sentence.</p>
+          <ul class="concepts"><li><code>const</code></li><li><code>let</code></li><li><code>`${}`</code></li></ul>
+        </a>
+        <a class="card" href="level-1-basics/03-operators-and-types/index.html" data-task="03-operators-and-types">
+          <span class="done">✓ Done</span><span class="num">1.3</span><h3>Operators &amp; Types</h3>
+          <p>A shopping bill, and why <code>"5" + 3</code> is <code>"53"</code>.</p>
+          <ul class="concepts"><li><code>%</code></li><li><code>Number()</code></li><li><code>===</code></li></ul>
+        </a>
+      </div>
+    </section>
+
+    <section class="level" data-level="2">
+      <div class="level-head"><span class="tag">Level 2</span><h2>Logic</h2><p>Reusable code, decisions, and repetition</p></div>
+      <div class="cards">
+        <a class="card" href="level-2-logic/04-functions/index.html" data-task="04-functions">
+          <span class="done">✓ Done</span><span class="num">2.1</span><h3>Functions</h3>
+          <p>Inputs in, output out. And why <code>return</code> isn't <code>console.log</code>.</p>
+          <ul class="concepts"><li><code>function</code></li><li><code>return</code></li><li><code>=&gt;</code></li></ul>
+        </a>
+        <a class="card" href="level-2-logic/05-conditions/index.html" data-task="05-conditions">
+          <span class="done">✓ Done</span><span class="num">2.2</span><h3>Conditions</h3>
+          <p>Grades, ticket prices, and who's allowed in.</p>
+          <ul class="concepts"><li><code>if / else</code></li><li><code>&amp;&amp;</code></li><li><code>||</code></li></ul>
+        </a>
+        <a class="card" href="level-2-logic/06-loops/index.html" data-task="06-loops">
+          <span class="done">✓ Done</span><span class="num">2.3</span><h3>Loops</h3>
+          <p>Sums, countdowns, FizzBuzz, and counting vowels.</p>
+          <ul class="concepts"><li><code>for</code></li><li><code>for...of</code></li><li><code>while</code></li></ul>
+        </a>
+      </div>
+    </section>
+
+    <section class="level" data-level="3">
+      <div class="level-head"><span class="tag">Level 3</span><h2>Data</h2><p>Lists and objects, the shape of real data</p></div>
+      <div class="cards">
+        <a class="card" href="level-3-data/07-arrays/index.html" data-task="07-arrays">
+          <span class="done">✓ Done</span><span class="num">3.1</span><h3>Arrays</h3>
+          <p>Read by position, add items, find the biggest.</p>
+          <ul class="concepts"><li><code>[0]</code></li><li><code>.length</code></li><li><code>.push</code></li></ul>
+        </a>
+        <a class="card" href="level-3-data/08-objects/index.html" data-task="08-objects">
+          <span class="done">✓ Done</span><span class="num">3.2</span><h3>Objects</h3>
+          <p>A student, a book, and properties you can read and add.</p>
+          <ul class="concepts"><li><code>obj.key</code></li><li><code>obj[key]</code></li></ul>
+        </a>
+        <a class="card" href="level-3-data/09-array-methods/index.html" data-task="09-array-methods">
+          <span class="done">✓ Done</span><span class="num">3.3</span><h3>Array Methods</h3>
+          <p>Questions about a shop, each answered in one line.</p>
+          <ul class="concepts"><li><code>map</code></li><li><code>filter</code></li><li><code>reduce</code></li></ul>
+        </a>
+      </div>
+    </section>
+
+    <section class="level" data-level="4">
+      <div class="level-head"><span class="tag">Level 4</span><h2>The page</h2><p>JavaScript changes HTML and reacts to users</p></div>
+      <div class="cards">
+        <a class="card" href="level-4-dom/10-dom-select-and-change/index.html" data-task="10-dom-select-and-change">
+          <span class="done">✓ Done</span><span class="num">4.1</span><h3>Select &amp; Change</h3>
+          <p>Find elements, change text and classes, create new ones.</p>
+          <ul class="concepts"><li><code>querySelector</code></li><li><code>classList</code></li></ul>
+        </a>
+        <a class="card" href="level-4-dom/11-events-counter/index.html" data-task="11-events-counter">
+          <span class="done">✓ Done</span><span class="num">4.2</span><h3>Click Counter</h3>
+          <p>Buttons, state, and the render() pattern.</p>
+          <ul class="concepts"><li><code>addEventListener</code></li><li>state</li></ul>
+        </a>
+        <a class="card" href="level-4-dom/12-forms-tip-calculator/index.html" data-task="12-forms-tip-calculator">
+          <span class="done">✓ Done</span><span class="num">4.3</span><h3>Tip Calculator</h3>
+          <p>Read a form, check the input, show the result.</p>
+          <ul class="concepts"><li><code>.value</code></li><li><code>preventDefault</code></li></ul>
+        </a>
+      </div>
+    </section>
+
+    <section class="level" data-level="5">
+      <div class="level-head"><span class="tag">Level 5</span><h2>Mini project</h2><p>Everything, together</p></div>
+      <div class="cards">
+        <a class="card" href="level-5-project/13-todo-app/index.html" data-task="13-todo-app">
+          <span class="done">✓ Done</span><span class="num">5.1</span><h3>Todo App</h3>
+          <p>Add, tick, delete and clear, all driven by one array.</p>
+          <ul class="concepts"><li>state → render</li><li>event delegation</li></ul>
+        </a>
+      </div>
+    </section>
+
+    <p class="reset">Your progress is saved in this browser only. <button type="button" id="reset-progress">Reset progress</button></p>
+  </div>
+
+  <script>
+    // Show a ✓ on tasks whose starter.js passed every check (runner.js saves this).
+    const cards = document.querySelectorAll(".card[data-task]");
+    function showProgress() {
+      cards.forEach((card) => {
+        let done = false;
+        try { done = localStorage.getItem(`js-from-zero:${card.dataset.task}`) === "done"; } catch {}
+        card.classList.toggle("is-done", done);
+      });
+    }
+    document.querySelector("#reset-progress").addEventListener("click", () => {
+      try { cards.forEach((c) => localStorage.removeItem(`js-from-zero:${c.dataset.task}`)); } catch {}
+      showProgress();
+    });
+    showProgress();
+  </script>
+</body>
+</html>

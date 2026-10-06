@@ -1,0 +1,162 @@
+/* Shared styles for the home page and every task page. */
+
+:root {
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --ink: #1c1b19;
+  --muted: #5b5850;
+  --line: #e2dfd7;
+  --code-bg: #efece5;
+  --pass: #1d7a3a;
+  --fail: #b3261e;
+  --skip: #75716a;
+  --console-bg: #1d1e21;
+  --console-ink: #e4e4e4;
+  --js: #f7df1e;             /* JS logo yellow, only for decoration behind dark text */
+  --l1: #2563eb; --l2: #7c3aed; --l3: #0f766e; --l4: #c2410c; --l5: #be185d;
+  --level: var(--l1);
+  --radius: 12px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141412; --surface: #1d1c1a; --ink: #ecebe7; --muted: #a8a49b; --line: #33312d;
+    --code-bg: #2a2825; --pass: #5cc97e; --fail: #ff7b72; --skip: #8f8b83;
+    --console-bg: #0e0e10;
+    --l1: #7aa7ff; --l2: #b79cff; --l3: #4fd1c1; --l4: #ff9a62; --l5: #ff79b8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141412; --surface: #1d1c1a; --ink: #ecebe7; --muted: #a8a49b; --line: #33312d;
+  --code-bg: #2a2825; --pass: #5cc97e; --fail: #ff7b72; --skip: #8f8b83;
+  --console-bg: #0e0e10;
+  --l1: #7aa7ff; --l2: #b79cff; --l3: #4fd1c1; --l4: #ff9a62; --l5: #ff79b8;
+  color-scheme: dark;
+}
+
+[data-level="1"] { --level: var(--l1); }
+[data-level="2"] { --level: var(--l2); }
+[data-level="3"] { --level: var(--l3); }
+[data-level="4"] { --level: var(--l4); }
+[data-level="5"] { --level: var(--l5); }
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--level); outline-offset: 2px; }
+code, pre, kbd { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.9em; }
+:not(pre) > code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 5px; }
+pre {
+  background: var(--code-bg); padding: 12px 14px; border-radius: 8px;
+  overflow-x: auto; line-height: 1.5; margin: 0.6em 0 1em;
+}
+kbd { border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
+
+/* ---------- task header ---------- */
+.task-head {
+  max-width: 1200px; margin: 0 auto; padding: 20px 16px 0;
+}
+.back { font-size: 14px; color: var(--muted); text-decoration: none; }
+.back:hover { color: var(--ink); text-decoration: underline; }
+.eyebrow {
+  margin: 14px 0 2px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--level);
+}
+.task-head h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; }
+.switch-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 14px; }
+.switch { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.switch a {
+  text-decoration: none; font-size: 14px; font-weight: 600; padding: 4px 14px; border-radius: 999px; color: var(--muted);
+}
+.switch a[aria-current="page"] { background: var(--ink); color: var(--bg); }
+.file-hint { margin: 0; font-size: 14px; color: var(--muted); }
+.is-solution .file-hint strong { color: var(--fail); }
+
+/* ---------- two-column task layout ---------- */
+.task {
+  max-width: 1200px; margin: 0 auto; padding: 20px 16px 64px;
+  display: grid; gap: 24px; align-items: start;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+}
+.task > .left { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; min-width: 0; }
+@media (max-width: 920px) {
+  .task { grid-template-columns: minmax(0, 1fr); }
+}
+
+.brief, .stage, .panel {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.brief { padding: 8px 24px 20px; }
+.brief h2 { font-size: 18px; margin: 20px 0 6px; }
+.brief p, .brief li { max-width: 68ch; }
+.brief ol, .brief ul { padding-left: 1.3em; }
+.brief li { margin: 4px 0; }
+.concepts { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0 !important; margin: 6px 0 0; }
+.concepts li { margin: 0; }
+.concepts code { display: inline-block; border: 1px solid var(--line); }
+.tip {
+  border-left: 4px solid var(--level); background: var(--code-bg);
+  padding: 10px 14px; border-radius: 0 8px 8px 0; margin: 12px 0;
+}
+.tip p { margin: 0; }
+details { margin-top: 16px; border: 1px dashed var(--line); border-radius: 8px; padding: 8px 14px; }
+summary { cursor: pointer; font-weight: 700; }
+
+/* ---------- stage: the student's live page (DOM tasks) ---------- */
+.stage { padding: 16px 20px 22px; }
+.stage-label {
+  font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin: 0 0 12px;
+}
+
+/* ---------- output column ---------- */
+.output { display: grid; gap: 16px; position: sticky; top: 16px; min-width: 0; }
+@media (max-width: 920px) { .output { position: static; } }
+.panel { padding: 14px 16px 16px; min-width: 0; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.panel h2 { margin: 0; font-size: 15px; }
+.score { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--muted); }
+.all-pass .score { color: var(--pass); }
+.all-pass .score::after { content: "  All checks pass!"; }
+.meter { height: 6px; background: var(--code-bg); border-radius: 99px; margin: 10px 0 8px; overflow: hidden; }
+.meter span { display: block; height: 100%; width: 0; background: var(--pass); transition: width 0.3s; }
+
+.checks { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+.checks li { display: flex; gap: 10px; padding: 6px 4px; font-size: 14px; line-height: 1.4; border-bottom: 1px solid var(--line); }
+.checks li:last-child { border-bottom: 0; }
+.checks .mark { font-weight: 800; width: 1em; flex: none; text-align: center; }
+.checks .text { display: grid; min-width: 0; }
+.checks .check-note { font-size: 12.5px; color: var(--muted); font-family: ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.checks .pass .mark { color: var(--pass); }
+.checks .fail .mark { color: var(--fail); }
+.checks .skip { color: var(--skip); }
+.checks .hint { color: var(--muted); border: 0; }
+
+button.run, button.ghost {
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 8px;
+}
+button.run { width: 100%; margin: 4px 0 8px; padding: 9px; border: 0; background: var(--ink); color: var(--bg); }
+button.ghost { padding: 3px 10px; border: 1px solid var(--line); background: transparent; color: var(--muted); }
+
+.console {
+  background: var(--console-bg); color: var(--console-ink); border-radius: 8px;
+  margin-top: 10px; padding: 8px 0; min-height: 120px; max-height: 360px; overflow: auto;
+  font: 13px/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+.console:empty::before { content: "Nothing logged yet."; color: #8a8a8a; padding: 0 12px; }
+.console .line { padding: 2px 12px; border-bottom: 1px solid #2c2d31; white-space: pre-wrap; overflow-wrap: anywhere; }
+.console .line .v + .v { margin-left: 0.6em; }
+.console .warn { background: #3a3218; color: #ffd76a; }
+.console .error { background: #3c1c1c; color: #ff9a92; }
+.console .num { color: #9bb8ff; }
+.console .bool { color: #d2a8ff; }
+.console .nil { color: #9a9a9a; }
+.console .fn { color: #7ee0c3; font-style: italic; }
+.console .obj { color: #f0c987; }
+.console .error .v, .console .warn .v { color: inherit; }

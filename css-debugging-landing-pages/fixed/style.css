@@ -1,0 +1,470 @@
+/* =========================================================
+   Brewly landing page — FIXED version
+   Every change from ../broken/style.css is tagged FIX 01 … FIX 17.
+   Each tag says what was wrong, what you'd see, and why the fix works.
+   Search this file for "FIX" to walk through them in order.
+   ========================================================= */
+
+/* FIX 01 — box-sizing
+   Was:   nothing (browser default is content-box).
+   Saw:   the email input sticks out of the white signup card.
+   Why:   with content-box, `width: 100%` sets the CONTENT width, and then
+          padding + border are added on top: 100% + 32px + 4px > 100%.
+          border-box makes width include padding and border. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Extra (goes with FIX 07) — smooth jump to #anchors. Nice-to-have, not a fix. */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: #2b1d14;
+  background: #fbf6ef;
+}
+
+/* FIX 03 — responsive images
+   Was:   nothing.
+   Saw:   the hero image is clipped — the coffee cup is cut off. The img is
+          720px wide inside a box that's narrower, and overflow: hidden crops it.
+   Why:   images default to their intrinsic size. max-width: 100% lets them
+          shrink with their container; height: auto keeps the aspect ratio.
+
+   FIX 04 — the mystery gap under images
+   Was:   img left as display: inline (the default).
+   Saw:   a thin orange strip under the hero image.
+   Why:   inline images sit on the text baseline, leaving room below it for
+          letter descenders (g, y, p). display: block removes the baseline. */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* FIX 05 — never remove focus outlines without a replacement
+   Was:   a, button, input { outline: none; }
+   Saw:   press Tab — you can't tell which element is focused.
+   Why:   keyboard users rely on the outline to know where they are.
+          :focus-visible shows it for keyboard focus but not for mouse clicks,
+          which is usually why people removed it in the first place. */
+:focus-visible {
+  outline: 3px solid #a84b1b;
+  outline-offset: 3px;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: clamp(28px, 5vw, 40px);  /* see FIX 12 */
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+/* FIX 02 — fluid container
+   Was:   width: 1140px;
+   Saw:   horizontal scrollbar on any screen narrower than ~1190px (all phones,
+          tablets, small laptops).
+   Why:   a fixed width can't shrink. min() picks whichever is smaller:
+          the full width minus a 24px gutter each side, or 1140px. */
+.container {
+  width: min(100% - 48px, 1140px);
+  margin-inline: auto;
+}
+
+/* ---------- buttons ---------- */
+
+/* FIX 14 (part 1) — no !important
+   Was:   background: #e9a877 !important;
+   Saw:   the "Choose Taster/Office" outline buttons are filled orange anyway,
+          with orange text on top — unreadable.
+   Why:   !important beats every normal rule, so .btn-outline's
+          `background: transparent` could never win. Remove it and let normal
+          cascade order do its job (.btn-outline comes later, so it wins).
+
+   FIX 06 (part 1) — contrast
+   Was:   white text on #e9a877 → contrast ratio ≈ 2:1.
+   Now:   white on #a84b1b → ≈ 5.7:1 (WCAG AA needs 4.5:1 for normal text). */
+.btn {
+  display: inline-block;
+  padding: 14px 28px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: #a84b1b;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #8e3d13;
+}
+
+.btn-small {
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+/* FIX 14 (part 2) — this rule now actually applies. */
+.btn-outline {
+  background: transparent;
+  color: #a84b1b;
+  border-color: #a84b1b;
+}
+
+.btn-outline:hover {
+  background: #a84b1b;
+  color: #fff;
+}
+
+/* ---------- header ---------- */
+
+/* FIX 07 — fixed header covering content
+   Was:   position: fixed;
+   Saw:   clicking "Pricing" in the nav scrolls the heading UNDER the header.
+   Why:   fixed elements are removed from the flow, so nothing reserves space
+          for them. position: sticky keeps the header in the flow (it takes up
+          its own space) but still sticks to the top when you scroll.
+
+   FIX 08 — stacking order
+   Was:   no z-index.
+   Saw:   scroll down — the hero image and the "Most popular" badge slide
+          OVER the header.
+   Why:   positioned elements with z-index: auto paint in source order, and
+          those elements come after the header in the HTML. Give the header
+          a z-index so it's lifted above them. */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 14px 0;
+  background: #fbf6ef;
+  border-bottom: 1px solid #eadfd2;
+}
+
+/* FIX 09 — vertical alignment in flex rows
+   Was:   no align-items (defaults to stretch).
+   Saw:   the 26px logo, 15px nav links and button don't line up — the small
+          text sits at the top of the row.
+   Why:   stretch makes every item as tall as the row, but their text still
+          starts at the top. align-items: center centres them on the row. */
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #2b1d14;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav a {
+  color: #2b1d14;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+/* Part of FIX 02: once the page can actually get narrow, the nav needs
+   somewhere to go. Simplest option for a demo: hide it on small screens. */
+@media (max-width: 640px) {
+  .nav {
+    display: none;
+  }
+}
+
+/* ---------- hero ---------- */
+
+/* FIX 10 — margin collapse
+   Was:   .hero-inner { margin-top: 140px; }  and no padding on .hero
+   Saw:   a cream-coloured gap between the header and the dark hero.
+   Why:   when a parent has no padding or border, its first child's top margin
+          "collapses" through it — the margin ends up OUTSIDE the parent,
+          pushing the whole dark background down. Use padding on the parent
+          for inner spacing; padding is inside the background.
+
+   FIX 11 — fixed hero height
+   Was:   height: 100vh;
+   Saw:   on short or narrow screens the hero text spills out of the dark
+          block into the next section (cream text on cream = invisible).
+   Why:   height is a hard cap; content can't make the box taller.
+          min-height is a floor — "at least this tall, grow if needed".
+          (Here we don't even need a minimum, so padding alone does it.) */
+.hero {
+  padding: 80px 0 96px;
+  background: #2b1d14;
+  color: #fbf6ef;
+}
+
+/* FIX 03 (part 2) — let the two hero columns share space.
+   Grid with minmax(0, 1fr) stops either column growing past its share. */
+.hero-inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* FIX 06 (part 2) — #e9a877 on the dark hero is fine (≈ 8:1), so it stays. */
+.eyebrow {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: #e9a877;
+}
+
+/* FIX 12 — fluid type
+   Was:   font-size: 72px;
+   Saw:   on a phone the heading fills the whole screen, a word or two per line.
+   Why:   px doesn't adapt. clamp(MIN, PREFERRED, MAX) scales with the viewport
+          (6vw) but never goes below 36px or above 72px. */
+.hero h1 {
+  font-size: clamp(36px, 6vw, 72px);
+  margin: 12px 0 20px;
+}
+
+/* FIX 06 (part 3) — contrast
+   Was:   #6e5a4a on #2b1d14 → ≈ 2.5:1.
+   Now:   #e8dccf on #2b1d14 → ≈ 12:1. */
+.lead {
+  font-size: 19px;
+  color: #e8dccf;
+  max-width: 520px;
+}
+
+.signup {
+  max-width: 420px;
+  margin-top: 32px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+/* FIX 01 (part 2) — this rule is unchanged. With border-box it now fits. */
+.signup input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e5d9cc;
+  border-radius: 10px;
+  font: inherit;
+}
+
+.signup .btn {
+  width: 100%;
+  margin-top: 12px;
+}
+
+.fineprint {
+  font-size: 14px;
+  color: #cbbcad;  /* FIX 06 — was #6e5a4a (≈ 2.5:1), now ≈ 8.8:1 */
+}
+
+.hero-art {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #e9a877;
+}
+
+/* ---------- sections ---------- */
+
+/* FIX 07 (part 2) — when you jump to #pricing, stop 90px short so the sticky
+   header doesn't sit on top of the heading. */
+.section {
+  padding: 96px 0;
+  scroll-margin-top: 90px;
+}
+
+.section-alt {
+  background: #f3eadf;
+}
+
+/* ---------- features ---------- */
+
+/* FIX 13 — cards that can't fit
+   Was:   .features { display: flex }  +  .card { flex: 0 0 360px }
+   Saw:   the third card pokes out past the container on desktop, and all
+          three run off the screen on a phone.
+   Why:   flex-shrink: 0 means "never shrink", and without flex-wrap the row
+          never breaks. Grid with auto-fit + minmax() makes as many columns
+          as fit (each at least 260px) and wraps the rest — no media query. */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* FIX 15 — fixed height on content boxes
+   Was:   height: 180px;
+   Saw:   the long "Ground for your brewer" text spills out of the bottom of
+          its card.
+   Why:   you can't know how tall text will be (screen width, font, language,
+          user zoom). Let content decide height. If cards must match, the grid
+          row already stretches them to the tallest one. */
+.card {
+  padding: 28px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.card-icon {
+  font-size: 32px;
+}
+
+.card h3 {
+  margin: 8px 0;
+  font-size: 20px;
+}
+
+/* FIX 06 (part 4) — was #c9bcaf on white (≈ 1.8:1). */
+.card p {
+  margin: 0;
+  color: #6b5646;
+}
+
+/* ---------- pricing ---------- */
+
+/* Part of FIX 13 — same auto-fit pattern so plans stack on phones. */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* FIX 16 — absolute positioning needs a positioned parent
+   Was:   no position on .plan
+   Saw:   the "Most popular" badge isn't on its card at all — it's stuck at
+          the very top of the page, half cut off, over the header.
+   Why:   position: absolute is measured from the nearest ancestor that is
+          itself positioned. There wasn't one, so it used the whole page.
+          position: relative on the card makes the card the reference. */
+.plan {
+  position: relative;
+  padding: 32px;
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.plan-popular {
+  border-color: #a84b1b;
+}
+
+.badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: #a84b1b;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.plan h3 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.price {
+  font-size: 44px;
+  font-weight: 800;
+  margin: 8px 0 16px;
+}
+
+/* FIX 06 (part 5) — was #c9bcaf. */
+.price span {
+  font-size: 16px;
+  font-weight: 400;
+  color: #6b5646;
+}
+
+/* FIX 06 (part 6) — was #c9bcaf. */
+.plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  color: #6b5646;
+}
+
+.plan li {
+  padding: 6px 0;
+}
+
+/* ---------- reviews ---------- */
+
+/* FIX 17 — long unbreakable text blowing out the grid
+   Was:   grid-template-columns: 1fr 1fr;  and no overflow-wrap
+   Saw:   the second review card is much wider than the first, and the
+          @handle runs out of its card / off the screen.
+   Why:   two problems stacked:
+          1. `1fr` really means minmax(auto, 1fr) — a column can't be
+             narrower than its longest unbreakable word, so it grows.
+             minmax(0, 1fr) (or auto-fit/minmax below) removes that floor.
+          2. Browsers only break lines at spaces. overflow-wrap: anywhere
+             allows a break inside a long word/URL/handle if it must. */
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 24px;
+}
+
+.review {
+  margin: 0;
+  padding: 32px;
+  background: #fff;
+  border-radius: 16px;
+  min-width: 0;
+}
+
+.review p {
+  margin: 0 0 16px;
+  font-size: 20px;
+}
+
+.review cite {
+  font-style: normal;
+  font-weight: 700;
+  color: #a84b1b;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- footer ---------- */
+
+/* FIX 06 (part 7) — was #5a4636 on #2b1d14 (≈ 1.8:1). */
+.footer {
+  padding: 32px 0;
+  background: #2b1d14;
+  color: #d9c9b8;
+  text-align: center;
+  font-size: 14px;
+}

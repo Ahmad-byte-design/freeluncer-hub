@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="560" viewBox="0 0 720 560">
+  <!-- Intrinsic size is 720×560 on purpose: in broken/ this is what the image
+       renders at, because nothing tells it to shrink. -->
+  <rect width="720" height="560" fill="#3a281c"/>
+  <circle cx="560" cy="120" r="160" fill="#4a3324"/>
+  <circle cx="120" cy="470" r="120" fill="#4a3324"/>
+
+  <!-- coffee bag -->
+  <path d="M170 170 h170 l20 300 h-210 z" fill="#e9dccb"/>
+  <rect x="170" y="150" width="170" height="30" rx="6" fill="#d8c7b1"/>
+  <rect x="200" y="260" width="110" height="110" rx="55" fill="#a84b1b"/>
+  <text x="255" y="325" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#fbf6ef" text-anchor="middle">B</text>
+  <rect x="195" y="400" width="120" height="10" rx="5" fill="#cbb89f"/>
+  <rect x="215" y="420" width="80" height="10" rx="5" fill="#cbb89f"/>
+
+  <!-- cup -->
+  <path d="M400 300 h180 l-18 170 a20 20 0 0 1 -20 18 h-104 a20 20 0 0 1 -20 -18 z" fill="#fbf6ef"/>
+  <path d="M578 330 a45 45 0 0 1 0 90" fill="none" stroke="#fbf6ef" stroke-width="18"/>
+  <ellipse cx="490" cy="300" rx="90" ry="14" fill="#6b3e22"/>
+
+  <!-- steam -->
+  <path d="M455 270 c-20 -30 20 -45 0 -80" fill="none" stroke="#e9dccb" stroke-width="8" stroke-linecap="round" opacity=".6"/>
+  <path d="M500 265 c-20 -30 20 -45 0 -80" fill="none" stroke="#e9dccb" stroke-width="8" stroke-linecap="round" opacity=".6"/>
+  <path d="M545 270 c-20 -30 20 -45 0 -80" fill="none" stroke="#e9dccb" stroke-width="8" stroke-linecap="round" opacity=".6"/>
+
+  <!-- beans -->
+  <g fill="#a84b1b">
+    <ellipse cx="400" cy="505" rx="16" ry="11" transform="rotate(-25 400 505)"/>
+    <ellipse cx="440" cy="520" rx="16" ry="11" transform="rotate(20 440 520)"/>
+    <ellipse cx="610" cy="500" rx="16" ry="11" transform="rotate(-10 610 500)"/>
+  </g>
+</svg>
