@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Next.js / build output
+.next/
+out/
+dist/
+build/
+
+# Tooling caches
+*.tsbuildinfo
+.eslintcache
+coverage/
+
+# Environment and OS noise
+.env
+.env.*
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
