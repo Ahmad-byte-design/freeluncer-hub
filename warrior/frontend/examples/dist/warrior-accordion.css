@@ -1,0 +1,231 @@
+/* Warrior accordion.
+   Every colour, radius and duration resolves to a --wr-* token.
+   No JavaScript-written styles: state is read from data-state / data-variant /
+   data-size / data-icon-position / data-animated only. */
+
+.wr-acc {
+  --wr-acc-pad-x: 16px;
+  --wr-acc-pad-y: 12px;
+  --wr-acc-trigger-size: 0.9375rem;
+  --wr-acc-body-size: 0.875rem;
+  --wr-acc-indent: 16px;
+  --wr-acc-icon: 16px;
+  --wr-acc-edge: var(--wr-border);
+  --wr-acc-row: transparent;
+
+  font-family: var(--wr-font-body);
+  color: var(--wr-text);
+  width: 100%;
+}
+
+.wr-acc[data-size='sm'] {
+  --wr-acc-pad-x: 12px;
+  --wr-acc-pad-y: 8px;
+  --wr-acc-trigger-size: 0.8125rem;
+  --wr-acc-body-size: 0.8125rem;
+  --wr-acc-indent: 12px;
+  --wr-acc-icon: 14px;
+}
+
+.wr-acc[data-size='lg'] {
+  --wr-acc-pad-x: 20px;
+  --wr-acc-pad-y: 16px;
+  --wr-acc-trigger-size: 1.0625rem;
+  --wr-acc-body-size: 0.9375rem;
+  --wr-acc-indent: 20px;
+  --wr-acc-icon: 18px;
+}
+
+/* The icon sits ahead of the title, so the body indents past it. */
+.wr-acc[data-icon-position='start'] {
+  --wr-acc-indent: calc(var(--wr-acc-pad-x) + var(--wr-acc-icon) + 8px);
+}
+
+/* --- item ------------------------------------------------------------- */
+
+.wr-acc__item {
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-acc-row);
+}
+
+.wr-acc__heading {
+  margin: 0;
+  font: inherit;
+  font-size: inherit;
+}
+
+.wr-acc__trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: var(--wr-acc-pad-y) var(--wr-acc-pad-x);
+  border: 0;
+  background: transparent;
+  font-family: var(--wr-font-display);
+  font-size: var(--wr-acc-trigger-size);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.005em;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--wr-radius-sm);
+  transition: background-color var(--wr-duration-fast) var(--wr-ease),
+    color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-acc[data-icon-position='start'] .wr-acc__trigger {
+  flex-direction: row;
+}
+
+.wr-acc[data-icon-position='end'] .wr-acc__title {
+  flex: 1 1 auto;
+}
+
+.wr-acc__title {
+  min-width: 0;
+}
+
+.wr-acc__trigger:hover:not([disabled]) {
+  background: var(--wr-row-hover, rgba(255, 77, 46, 0.08));
+}
+
+.wr-acc__trigger:focus-visible {
+  outline: 2px solid var(--wr-focus);
+  outline-offset: -2px;
+}
+
+.wr-acc__trigger[disabled] {
+  cursor: not-allowed;
+  color: var(--wr-text-dim);
+}
+
+.wr-acc__icon {
+  flex: 0 0 auto;
+  width: var(--wr-acc-icon);
+  height: var(--wr-acc-icon);
+  color: var(--wr-steel);
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+  transition: transform var(--wr-duration-base) var(--wr-ease),
+    color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-acc__item[data-state='open'] > .wr-acc__heading .wr-acc__icon {
+  transform: rotate(90deg);
+  color: var(--wr-ember);
+}
+
+.wr-acc__item[data-state='open'] > .wr-acc__heading .wr-acc__trigger {
+  color: var(--wr-text);
+}
+
+/* --- panel ------------------------------------------------------------ */
+
+.wr-acc__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--wr-duration-base) var(--wr-ease);
+}
+
+.wr-acc__panel[data-state='open'] {
+  grid-template-rows: 1fr;
+}
+
+.wr-acc__content {
+  min-height: 0;
+  overflow: hidden;
+  /* Keeps the closed body out of the tab order and the accessibility tree
+     without display:none, which would kill the height transition. */
+  visibility: hidden;
+  transition: visibility 0s linear var(--wr-duration-base);
+}
+
+.wr-acc__panel[data-state='open'] .wr-acc__content {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.wr-acc__content > p {
+  margin: 0;
+  padding: 0 var(--wr-acc-pad-x) var(--wr-acc-pad-y) var(--wr-acc-indent);
+  font-size: var(--wr-acc-body-size);
+  line-height: 1.65;
+  color: var(--wr-text-muted);
+}
+
+/* Once the body carries the spacing, the trigger gives it back. */
+.wr-acc__panel[data-state='open'] .wr-acc__trigger {
+  padding-bottom: calc(var(--wr-acc-pad-y) / 2);
+}
+
+/* --- variants --------------------------------------------------------- */
+
+/* default: hairline-separated rows on the page plane */
+.wr-acc[data-variant='default'] .wr-acc__item + .wr-acc__item {
+  border-top: 1px solid var(--wr-edge);
+}
+
+/* bordered: the whole group enclosed in one frame */
+.wr-acc[data-variant='bordered'] {
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+}
+.wr-acc[data-variant='bordered'] .wr-acc__item + .wr-acc__item {
+  border-top: 1px solid var(--wr-border);
+}
+
+/* filled: each row is its own plate */
+.wr-acc[data-variant='filled'] {
+  display: grid;
+  gap: 8px;
+}
+.wr-acc[data-variant='filled'] .wr-acc__item {
+  background: var(--wr-surface);
+  border: 1px solid var(--wr-edge);
+  border-radius: var(--wr-radius-md);
+}
+.wr-acc[data-variant='filled'] .wr-acc__content > p {
+  padding-right: var(--wr-acc-pad-x);
+}
+
+/* separated: no rules at all, spacing does the grouping */
+.wr-acc[data-variant='separated'] {
+  display: grid;
+  gap: 4px;
+}
+.wr-acc[data-variant='separated'] .wr-acc__trigger {
+  color: var(--wr-text-muted);
+  font-weight: 500;
+}
+.wr-acc[data-variant='separated'] .wr-acc__item[data-state='open'] .wr-acc__trigger {
+  color: var(--wr-text);
+}
+
+/* --- motion off ------------------------------------------------------- */
+
+.wr-acc[data-animated='false'] .wr-acc__panel,
+.wr-acc[data-animated='false'] .wr-acc__content,
+.wr-acc[data-animated='false'] .wr-acc__icon {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-acc__panel,
+  .wr-acc__content,
+  .wr-acc__icon,
+  .wr-acc__trigger {
+    transition-duration: 1ms;
+  }
+}
+
+/* --- forced colors ---------------------------------------------------- */
+
+@media (forced-colors: active) {
+  .wr-acc__item[data-state='open'] > .wr-acc__heading .wr-acc__icon {
+    color: Highlight;
+  }
+  .wr-acc__trigger:focus-visible {
+    outline-color: Highlight;
+  }
+}

@@ -1,0 +1,29 @@
+/* Warrior — reset.
+   Small on purpose: Warrior is opt-in, it should not restyle a host page. */
+
+.wr-reset,
+.wr-reset *,
+.wr-reset *::before,
+.wr-reset *::after {
+  box-sizing: border-box;
+}
+
+.wr-reset h1,
+.wr-reset h2,
+.wr-reset h3,
+.wr-reset h4,
+.wr-reset p,
+.wr-reset figure {
+  margin: 0;
+}
+
+.wr-reset button {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+.wr-reset :focus-visible {
+  outline: 2px solid var(--wr-focus);
+  outline-offset: 2px;
+}
