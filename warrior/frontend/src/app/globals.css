@@ -1,0 +1,651 @@
+/* Warrior docs — application chrome.
+   Three hairline-separated columns, no floating cards and no shadows.
+   lib/core/tokens.css and lib/accordion/accordion.css are imported in layout.tsx
+   before this file, so every rule here can rely on the tokens existing. */
+
+:root {
+  --rail-left: 248px;
+  --rail-right: 304px;
+  --header-h: 60px;
+  --page-max: 1240px;
+  --grid-line: rgba(242, 239, 232, 0.024);
+  --mark: rgba(154, 163, 178, 0.42);
+}
+
+[data-theme='light'] {
+  --grid-line: rgba(11, 13, 18, 0.035);
+  --mark: rgba(11, 13, 18, 0.28);
+}
+
+/* next/font puts --font-* on <body>, so the token families are wired up on the
+   same element. Declaring them on :root instead would make every value invalid
+   at computed-value time, because :root cannot see a variable set further down
+   the tree. lib/core/tokens.css keeps the stack-alone defaults for a plain
+   <link> copy of the library. */
+body {
+  --wr-font-display: var(--font-display), 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+  --wr-font-body: var(--font-body), 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --wr-font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, monospace;
+}
+
+html {
+  background: var(--wr-bg);
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--wr-bg);
+  color: var(--wr-text);
+  font-family: var(--wr-font-body);
+  font-size: var(--wr-text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--wr-ember);
+  color: var(--wr-text-on-ember);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--wr-focus);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--wr-border);
+  border: 3px solid var(--wr-bg);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--wr-steel);
+}
+
+.wr-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wr-skip-link {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 8px 12px;
+  background: var(--wr-ember);
+  color: var(--wr-text-on-ember);
+  font-family: var(--wr-font-display);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: var(--wr-radius-sm);
+  transform: translateY(-200%);
+}
+.wr-skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* --- frame ------------------------------------------------------------ */
+
+.wr-app {
+  display: grid;
+  grid-template-columns: var(--rail-left) minmax(0, 1fr) var(--rail-right);
+  grid-template-rows: var(--header-h) minmax(0, 1fr);
+  grid-template-areas:
+    'head head head'
+    'left main right';
+  min-height: 100dvh;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  border-inline: 1px solid var(--wr-edge);
+}
+
+.wr-head {
+  grid-area: head;
+}
+.wr-rail-left {
+  grid-area: left;
+}
+.wr-rail-main {
+  grid-area: main;
+}
+.wr-rail-right {
+  grid-area: right;
+}
+
+.wr-rail-left,
+.wr-rail-right {
+  position: relative;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--wr-bg);
+}
+
+.wr-rail-left {
+  border-right: 1px solid var(--wr-edge);
+}
+
+.wr-rail-right {
+  border-left: 1px solid var(--wr-edge);
+}
+
+.wr-rail-main {
+  min-width: 0;
+  overflow-y: auto;
+  /* Forge-steel graph paper. Structural, not a wash. */
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}
+
+/* --- the one load moment: the frame draws itself in ------------------- */
+
+@keyframes wr-draw-vertical {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes wr-draw-horizontal {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes wr-rise {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.wr-head::after,
+.wr-rail-left::before,
+.wr-rail-right::before {
+  content: '';
+  position: absolute;
+  background: var(--wr-ember);
+  transform-origin: top left;
+}
+
+.wr-head::after {
+  inset: auto 0 0 0;
+  height: 1px;
+  transform-origin: left center;
+  animation: wr-draw-horizontal 480ms var(--wr-ease) both;
+}
+
+.wr-rail-left::before {
+  top: 0;
+  right: -1px;
+  width: 1px;
+  height: 34%;
+  animation: wr-draw-vertical 520ms var(--wr-ease) 120ms both;
+}
+
+.wr-rail-right::before {
+  top: 0;
+  left: -1px;
+  width: 1px;
+  height: 22%;
+  animation: wr-draw-vertical 520ms var(--wr-ease) 200ms both;
+}
+
+.wr-page-head {
+  animation: wr-rise 420ms var(--wr-ease) 140ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-head::after,
+  .wr-rail-left::before,
+  .wr-rail-right::before,
+  .wr-page-head {
+    animation: none;
+  }
+  .wr-head::after,
+  .wr-rail-left::before,
+  .wr-rail-right::before {
+    transform: none;
+  }
+}
+
+/* --- shared section furniture ---------------------------------------- */
+
+/* A rule that the label sits on, so the divider carries information. */
+.wr-rule-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.wr-rule-label::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--wr-edge);
+}
+
+.wr-rule-label__text {
+  font-family: var(--wr-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--wr-text-muted);
+}
+
+.wr-count {
+  font-family: var(--wr-font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--wr-text-dim);
+}
+
+/* --- spec plate ------------------------------------------------------- */
+
+.wr-plate {
+  position: relative;
+  background: var(--wr-bg);
+  border: 1px solid var(--wr-edge);
+  border-radius: var(--wr-radius-md);
+}
+
+.wr-plate__registration {
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  color: var(--mark);
+  background-repeat: no-repeat;
+  --len: 10px;
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(currentColor, currentColor);
+  background-size:
+    var(--len) 1px,
+    1px var(--len),
+    var(--len) 1px,
+    1px var(--len),
+    var(--len) 1px,
+    1px var(--len),
+    var(--len) 1px,
+    1px var(--len);
+  background-position:
+    0 0,
+    0 0,
+    100% 0,
+    100% 0,
+    0 100%,
+    0 100%,
+    100% 100%,
+    100% 100%;
+}
+
+/* Answers "what just changed": the plate edge marks the control you moved. */
+@keyframes wr-specimen-changed {
+  from {
+    border-color: var(--wr-ember);
+  }
+  to {
+    border-color: var(--wr-edge);
+  }
+}
+
+.wr-plate--changed {
+  animation: wr-specimen-changed 620ms var(--wr-ease);
+}
+
+/* --- buttons and controls -------------------------------------------- */
+
+.wr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  height: 32px;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-surface);
+  color: var(--wr-text);
+  font-family: var(--wr-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color var(--wr-duration-fast) var(--wr-ease),
+    color var(--wr-duration-fast) var(--wr-ease),
+    background-color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-btn:hover {
+  border-color: var(--wr-steel);
+  color: var(--wr-text);
+}
+
+.wr-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--wr-text-muted);
+}
+
+.wr-btn--ghost:hover {
+  border-color: var(--wr-border);
+  color: var(--wr-text);
+}
+
+.wr-btn--primary {
+  background: var(--wr-ember);
+  border-color: var(--wr-ember);
+  color: var(--wr-text-on-ember);
+  font-weight: 500;
+}
+
+.wr-btn--primary:hover {
+  border-color: var(--wr-ember);
+  background: var(--wr-ember);
+  filter: brightness(1.08);
+}
+
+.wr-btn--icon {
+  width: 32px;
+  padding: 0;
+}
+
+.wr-btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.wr-field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--wr-text-muted);
+}
+
+.wr-input {
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-surface-sunken);
+  color: var(--wr-text);
+  font-family: var(--wr-font-mono);
+  font-size: 12.5px;
+  transition: border-color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-input::placeholder {
+  color: var(--wr-text-dim);
+}
+
+.wr-input:hover {
+  border-color: var(--wr-steel);
+}
+
+.wr-input:focus-visible {
+  outline: none;
+  border-color: var(--wr-ember);
+  box-shadow: 0 0 0 3px rgba(255, 77, 46, 0.18);
+}
+
+.wr-select-wrap {
+  position: relative;
+  display: block;
+}
+
+.wr-select {
+  appearance: none;
+  width: 100%;
+  height: 32px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-surface-sunken);
+  color: var(--wr-text);
+  font-family: var(--wr-font-body);
+  font-size: 13px;
+  cursor: pointer;
+  transition: border-color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-select:hover {
+  border-color: var(--wr-steel);
+}
+
+.wr-select:focus-visible {
+  outline: none;
+  border-color: var(--wr-ember);
+  box-shadow: 0 0 0 3px rgba(255, 77, 46, 0.18);
+}
+
+.wr-select-caret {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  color: var(--wr-text-dim);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* Switch: a square knob on a flat track. No pill. */
+.wr-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 10px 0 0;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-surface-sunken);
+  cursor: pointer;
+  text-align: left;
+}
+
+.wr-switch__label {
+  font-family: var(--wr-font-mono);
+  font-size: 12.5px;
+  color: var(--wr-text-muted);
+  transition: color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-switch[aria-checked='true'] .wr-switch__label {
+  color: var(--wr-text);
+}
+
+.wr-switch__track {
+  position: relative;
+  flex: 0 0 auto;
+  width: 26px;
+  height: 14px;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-bg);
+}
+
+.wr-switch__knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  background: var(--wr-text-dim);
+  border-radius: 1px;
+  transition:
+    transform var(--wr-duration-base) var(--wr-ease),
+    background-color var(--wr-duration-base) var(--wr-ease);
+}
+
+.wr-switch[aria-checked='true'] .wr-switch__track {
+  border-color: var(--wr-ember);
+  background: rgba(255, 77, 46, 0.14);
+}
+
+.wr-switch[aria-checked='true'] .wr-switch__knob {
+  transform: translateX(12px);
+  background: var(--wr-ember);
+}
+
+.wr-switch:hover {
+  border-color: var(--wr-steel);
+}
+
+.wr-hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--wr-text-dim);
+}
+
+/* --- not found -------------------------------------------------------- */
+
+.wr-notfound {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 46ch;
+  padding: 96px 24px;
+}
+
+.wr-notfound h1 {
+  margin: 0;
+  font-family: var(--wr-font-display);
+  font-size: var(--wr-text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--wr-text);
+}
+
+.wr-notfound p {
+  margin: 0;
+  color: var(--wr-text-muted);
+}
+
+/* --- responsive ------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .wr-app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'head'
+      'main';
+    border-inline: 0;
+  }
+
+  .wr-rail-left,
+  .wr-rail-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 40;
+    width: min(320px, 84vw);
+    background: var(--wr-bg);
+    /* Transform alone left the shut drawer's controls focusable and in the
+       accessibility tree. Take it out of both; the delayed visibility keeps
+       the slide-out animation visible before the panel disappears. */
+    visibility: hidden;
+    transition:
+      transform var(--wr-duration-base) var(--wr-ease),
+      visibility 0s linear var(--wr-duration-base);
+  }
+
+  .wr-rail-left {
+    left: 0;
+    transform: translateX(-101%);
+    box-shadow: 1px 0 0 var(--wr-edge);
+  }
+
+  .wr-rail-right {
+    right: 0;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    max-height: 78dvh;
+    border-left: 0;
+    border-top: 1px solid var(--wr-border);
+    transform: translateY(101%);
+    box-shadow: 0 -1px 0 var(--wr-edge);
+  }
+
+  .wr-rail-left[data-open='true'],
+  .wr-rail-right[data-open='true'] {
+    transform: translateX(0) translateY(0);
+    visibility: visible;
+    transition:
+      transform var(--wr-duration-base) var(--wr-ease),
+      visibility 0s linear 0s;
+  }
+
+  .wr-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: rgba(11, 13, 18, 0.62);
+    animation: wr-rise var(--wr-duration-base) var(--wr-ease);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-rail-left,
+  .wr-rail-right {
+    transition: none;
+  }
+}
+
+/* The search scrim must never be interactive above the desktop breakpoint,
+   where the rails are laid out inline and there is nothing to dismiss. */
+@media (min-width: 1024px) {
+  .wr-scrim--search {
+    display: none;
+  }
+}

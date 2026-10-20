@@ -1,0 +1,113 @@
+/* Warrior — design tokens.
+   Framework-agnostic. Every value here comes from docs/design/design.md.
+   Dark is the default; light swaps two roles and keeps the signature. */
+
+:root {
+  /* Signature */
+  --wr-ember: #ff4d2e;
+  --wr-victory: #3ddc97;
+
+  /* Surfaces */
+  --wr-obsidian: #0b0d12;
+  --wr-iron: #161a22;
+
+  /* Type */
+  --wr-bone: #f2efe8;
+  --wr-steel: #9aa3b2;
+
+  /* Lines */
+  --wr-border: #2a3040;
+
+  /* --- derived, resolved per theme ------------------------------- */
+
+  /* Page plane */
+  --wr-bg: var(--wr-obsidian);
+  /* Raised plane: panels, specimen plates, controls */
+  --wr-surface: var(--wr-iron);
+  /* Surface one step further back: wells, code blocks, table heads */
+  --wr-surface-sunken: #10141b;
+
+  /* Edge that separates a surface from the plane without a shadow */
+  --wr-edge: #1e2431;
+
+  /* Text */
+  --wr-text: var(--wr-bone);
+  --wr-text-muted: var(--wr-steel);
+  --wr-text-dim: #8b93a1;
+  --wr-text-on-ember: var(--wr-obsidian);
+
+  /* Text roles for the two signal hues. The fills stay the raw brand colours
+     (they carry white-on-colour and borders, where the originals are fine);
+     these are the readable variants for ember/victory used *as text*, where
+     #ff4d2e lands at 2.88:1 and #3ddc97 at 1.54:1 on light. Dark needs no
+     change, so these alias the brand colours exactly. */
+  --wr-ember-text: var(--wr-ember);
+  --wr-victory-text: var(--wr-victory);
+
+  /* Interaction */
+  --wr-focus: var(--wr-ember);
+  --wr-focus-ring: 0 0 0 2px var(--wr-bg), 0 0 0 4px var(--wr-ember);
+
+  /* Signal */
+  --wr-danger: #ff6b4a;
+  --wr-warning: #f5b942;
+
+  /* Geometry — sharp by default, max 4px per the design language */
+  --wr-radius-sm: 2px;
+  --wr-radius-md: 4px;
+  --wr-radius-pill: 2px;
+
+  /* 4px spacing grid */
+  --wr-space-1: 4px;
+  --wr-space-2: 8px;
+  --wr-space-3: 12px;
+  --wr-space-4: 16px;
+  --wr-space-5: 20px;
+  --wr-space-6: 24px;
+  --wr-space-8: 32px;
+  --wr-space-10: 40px;
+  --wr-space-12: 48px;
+  --wr-space-16: 64px;
+
+  /* Type families, injected by next/font on the docs site. The fallbacks
+     keep a plain <link> copy of this file readable. */
+  --wr-font-display: 'Chakra Petch', 'Segoe UI', system-ui, sans-serif;
+  --wr-font-body: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --wr-font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Type scale */
+  --wr-text-xs: 0.6875rem; /* 11px — data */
+  --wr-text-sm: 0.8125rem; /* 13px — code, dense */
+  --wr-text-base: 0.9375rem; /* 15px — body */
+  --wr-text-md: 1rem; /* 16px — subheads */
+  --wr-text-lg: 1.375rem; /* 22px — section */
+  --wr-text-xl: 2.5rem; /* 40px — display */
+
+  /* Motion */
+  --wr-duration-fast: 120ms;
+  --wr-duration-base: 200ms;
+  --wr-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+[data-theme='light'] {
+  --wr-bg: var(--wr-bone);
+  --wr-surface: #ffffff;
+  --wr-surface-sunken: #eceae3;
+  --wr-edge: #dedbd2;
+  --wr-text: var(--wr-obsidian);
+  --wr-text-muted: #4d5462;
+  --wr-text-dim: #626a78;
+  --wr-text-on-ember: var(--wr-obsidian);
+  /* Darkened members of the same two hues: 4.9:1 and 4.6:1 on the bone plane. */
+  --wr-ember-text: #b32d15;
+  --wr-victory-text: #0d6e45;
+  --wr-focus: #b32d15;
+  --wr-focus-ring: 0 0 0 2px var(--wr-bg), 0 0 0 4px var(--wr-focus);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --wr-duration-fast: 1ms;
+    --wr-duration-base: 1ms;
+  }
+}

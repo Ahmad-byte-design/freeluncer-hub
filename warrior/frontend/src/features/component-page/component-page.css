@@ -1,0 +1,474 @@
+/* Warrior docs — the main column. */
+
+.wr-page {
+  padding: 32px 32px 72px;
+  max-width: 880px;
+}
+
+/* --- page head -------------------------------------------------------- */
+
+.wr-page__titleline {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.wr-page__name {
+  margin: 0;
+  font-family: var(--wr-font-display);
+  font-size: var(--wr-text-xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--wr-text);
+}
+
+.wr-page__version {
+  font-family: var(--wr-font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--wr-text-dim);
+}
+
+.wr-page__status {
+  padding: 1px 7px 2px;
+  border: 1px solid var(--wr-border);
+  border-radius: var(--wr-radius-sm);
+  font-family: var(--wr-font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--wr-text-muted);
+}
+
+.wr-page__status[data-status='stable'] {
+  border-color: rgba(61, 220, 151, 0.36);
+  color: var(--wr-victory-text);
+}
+
+.wr-page__status[data-status='beta'],
+.wr-page__status[data-status='new'] {
+  border-color: rgba(255, 77, 46, 0.4);
+  color: var(--wr-ember-text);
+}
+
+.wr-page__desc {
+  margin: 10px 0 0;
+  max-width: 68ch;
+  font-size: var(--wr-text-base);
+  line-height: 1.65;
+  color: var(--wr-text-muted);
+}
+
+/* --- sections --------------------------------------------------------- */
+
+.wr-section {
+  margin-top: 44px;
+  scroll-margin-top: 16px;
+}
+
+.wr-rule-label .wr-count {
+  order: 3;
+}
+
+/* --- example tabs ----------------------------------------------------- */
+
+.wr-example__bar {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--wr-edge);
+}
+
+.wr-example__tab {
+  position: relative;
+  padding: 9px 14px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--wr-text-dim);
+  font-family: var(--wr-font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-example__tab::after {
+  content: '';
+  position: absolute;
+  inset: auto 14px -1px 14px;
+  height: 2px;
+  background: var(--wr-ember);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--wr-duration-base) var(--wr-ease);
+}
+
+.wr-example__tab:hover {
+  color: var(--wr-text-muted);
+}
+
+.wr-example__tab[aria-selected='true'] {
+  color: var(--wr-text);
+}
+
+.wr-example__tab[aria-selected='true']::after {
+  transform: scaleX(1);
+}
+
+.wr-example__panel {
+  padding-top: 20px;
+}
+
+.wr-example__panel:focus-visible {
+  outline: 2px solid var(--wr-focus);
+  outline-offset: 4px;
+}
+
+/* --- specimen plate --------------------------------------------------- */
+
+.wr-specimen {
+  padding: 32px;
+}
+
+.wr-specimen__inner {
+  position: relative;
+  max-width: 620px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-plate--changed {
+    animation: none;
+  }
+
+  .wr-example__tab::after {
+    transition: none;
+  }
+}
+
+/* --- variant specimens ------------------------------------------------ */
+
+.wr-specimens {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A spec sheet, not a card grid: the value on the left, the specimen beside
+   it, a hairline between rows. */
+.wr-specimen-row {
+  display: grid;
+  grid-template-columns: 196px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  padding: 22px 0;
+  border-top: 1px solid var(--wr-edge);
+}
+
+.wr-specimen-row:first-child {
+  padding-top: 4px;
+  border-top: 0;
+}
+
+.wr-specimen-row__head {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--wr-edge);
+}
+
+.wr-specimen-row__name {
+  margin: 0;
+  font-family: var(--wr-font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--wr-text);
+}
+
+.wr-specimen-row__attr {
+  font-family: var(--wr-font-mono);
+  font-size: 11px;
+  color: var(--wr-text-dim);
+  overflow-wrap: anywhere;
+}
+
+.wr-specimen-row__desc {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--wr-text-muted);
+}
+
+.wr-specimen-row__plate {
+  padding: 22px 24px;
+  min-width: 0;
+}
+
+.wr-specimen-row__inner {
+  position: relative;
+}
+
+/* --- props table ------------------------------------------------------ */
+
+.wr-table-wrap {
+  border-top: 1px solid var(--wr-edge);
+}
+
+.wr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.wr-table th,
+.wr-table td {
+  padding: 11px 14px 11px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--wr-edge);
+}
+
+.wr-table thead th {
+  padding-top: 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--wr-text-dim);
+}
+
+.wr-table tbody th {
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* Prop and Default are single tokens: never break them. Type wraps, but only
+   at the spaces between unions. */
+.wr-table tbody th,
+.wr-table td:nth-child(3) {
+  width: 1px;
+  white-space: nowrap;
+}
+
+.wr-table tbody th code {
+  font-family: var(--wr-font-mono);
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--wr-text);
+}
+
+.wr-table__type {
+  font-family: var(--wr-font-mono);
+  font-size: 12px;
+  color: var(--wr-ember-text);
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.wr-table__default {
+  font-family: var(--wr-font-mono);
+  font-size: 12px;
+  color: var(--wr-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.wr-table td:last-child {
+  padding-right: 0;
+  color: var(--wr-text-muted);
+  line-height: 1.6;
+  min-width: 26ch;
+}
+
+/* --- keyboard --------------------------------------------------------- */
+
+.wr-keys {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--wr-edge);
+}
+
+.wr-keys__row {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 16px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--wr-edge);
+}
+
+.wr-keys__combo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.wr-keys kbd {
+  display: inline-block;
+  padding: 2px 7px 3px;
+  border: 1px solid var(--wr-border);
+  border-bottom-width: 2px;
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-surface-sunken);
+  font-family: var(--wr-font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--wr-text);
+}
+
+.wr-keys__does {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--wr-text-muted);
+}
+
+/* --- files ------------------------------------------------------------ */
+
+.wr-files {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+}
+
+.wr-files ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--wr-edge);
+}
+
+.wr-files li {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--wr-edge);
+}
+
+.wr-files code {
+  font-family: var(--wr-font-mono);
+  font-size: 12.5px;
+  color: var(--wr-text-muted);
+}
+
+.wr-files__note {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--wr-text-muted);
+}
+
+.wr-files__note code {
+  padding: 1px 5px 2px;
+  border: 1px solid var(--wr-edge);
+  border-radius: var(--wr-radius-sm);
+  background: var(--wr-surface-sunken);
+  font-size: 11.5px;
+  color: var(--wr-text);
+}
+
+/* --- responsive ------------------------------------------------------- */
+
+@media (max-width: 1023px) {
+  .wr-page {
+    padding: 28px 24px 96px;
+  }
+}
+
+/* The label column and the specimen stop fitting side by side. */
+@media (max-width: 899px) {
+  .wr-specimen-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .wr-specimen-row__head {
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 767px) {
+  .wr-page {
+    padding: 24px 16px 96px;
+  }
+
+  .wr-specimen-row__plate {
+    padding: 16px 14px;
+  }
+
+  .wr-specimen {
+    padding: 20px 16px;
+  }
+
+  .wr-keys__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  /* The table stops being a table and becomes a definition list. */
+  .wr-table thead {
+    display: none;
+  }
+
+  .wr-table,
+  .wr-table tbody,
+  .wr-table tr,
+  .wr-table th,
+  .wr-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .wr-table tr {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--wr-edge);
+  }
+
+  .wr-table th,
+  .wr-table td {
+    padding: 0;
+    border: 0;
+  }
+
+  .wr-table tbody th {
+    margin-bottom: 4px;
+  }
+
+  .wr-table td {
+    margin-bottom: 4px;
+  }
+
+  .wr-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--wr-text-dim);
+  }
+
+  /* The prop name is the row heading; it does not need the attribute label
+     repeated above it. The table renders it with `data-label="Prop"`, which
+     matched the `td::before` rule above by attribute selector and won on
+     specificity, so the plain `tbody th::before` hide below never applied.
+     Repeat the attribute here to outrank it. */
+  .wr-table tbody th[data-label]::before {
+    display: none;
+  }
+
+  /* The desktop rule at `.wr-table td:nth-child(3)` sets `width: 1px` so the
+     cell shrink-wraps to its token. Once the table is a stack of blocks that
+     trick backfires — 1px is taken literally and the Type cell vanishes. Undo
+     it with the same selectors and specificity. */
+  .wr-table tbody th,
+  .wr-table td:nth-child(3),
+  .wr-table tbody td {
+    width: 100%;
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .wr-table td:last-child {
+    min-width: 0;
+  }
+}

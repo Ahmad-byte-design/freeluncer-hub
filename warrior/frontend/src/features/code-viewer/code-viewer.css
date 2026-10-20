@@ -1,0 +1,168 @@
+/* Warrior docs — the code tab. */
+
+.wr-code {
+  background: var(--wr-surface-sunken);
+  border: 1px solid var(--wr-edge);
+  border-radius: var(--wr-radius-md);
+  overflow: hidden;
+}
+
+.wr-code__loading {
+  padding: 28px 18px;
+  border: 1px solid var(--wr-edge);
+  border-radius: var(--wr-radius-md);
+  background: var(--wr-surface-sunken);
+  font-family: var(--wr-font-mono);
+  font-size: 12.5px;
+  color: var(--wr-text-dim);
+}
+
+.wr-code__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px 0 4px;
+  border-bottom: 1px solid var(--wr-edge);
+}
+
+.wr-code__tabs {
+  display: flex;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.wr-code__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.wr-code__tab {
+  position: relative;
+  padding: 10px 10px 9px;
+  border: 0;
+  background: transparent;
+  color: var(--wr-text-dim);
+  font-family: var(--wr-font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-code__tab::after {
+  content: '';
+  position: absolute;
+  inset: auto 10px 0 10px;
+  height: 2px;
+  background: var(--wr-ember);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--wr-duration-base) var(--wr-ease);
+}
+
+.wr-code__tab:hover {
+  color: var(--wr-text-muted);
+}
+
+.wr-code__tab.is-active {
+  color: var(--wr-text);
+}
+
+.wr-code__tab.is-active::after {
+  transform: scaleX(1);
+}
+
+.wr-code__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: var(--wr-radius-sm);
+  background: transparent;
+  color: var(--wr-text-dim);
+  font-family: var(--wr-font-body);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    color var(--wr-duration-fast) var(--wr-ease),
+    border-color var(--wr-duration-fast) var(--wr-ease);
+}
+
+.wr-code__copy:hover {
+  color: var(--wr-text);
+  border-color: var(--wr-border);
+}
+
+.wr-code__copy[data-copied='true'] {
+  color: var(--wr-victory-text);
+}
+
+.wr-code__scroll {
+  max-height: 460px;
+  overflow: auto;
+}
+
+.wr-code__body {
+  margin: 0;
+  padding: 16px 18px 20px;
+  font-family: var(--wr-font-mono);
+  font-size: 12.5px;
+  line-height: 1.72;
+  tab-size: 2;
+}
+
+.wr-code__body--plain {
+  white-space: pre;
+  color: var(--wr-text-muted);
+}
+
+/* shiki emits --shiki-light / --shiki-dark on every token; pick one. */
+.wr-code__body pre {
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  font: inherit;
+  line-height: inherit;
+}
+
+.wr-code__body code {
+  display: block;
+  font: inherit;
+  background: none;
+}
+
+.wr-code__body span {
+  color: var(--shiki-dark);
+}
+
+.wr-code__body .line {
+  display: block;
+  min-height: 1em;
+}
+
+[data-theme='light'] .wr-code__body span {
+  color: var(--shiki-light);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wr-code__tab::after {
+    transition: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .wr-code__copy span {
+    display: none;
+  }
+
+  .wr-code__body {
+    font-size: 12px;
+    padding: 14px 14px 18px;
+  }
+}
